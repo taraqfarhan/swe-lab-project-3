@@ -3,8 +3,6 @@ CAFE ORDER MANAGEMENT SYSTEM
   1. SINGLETON PATTERN       -> OrderTracker (Central order counter & tracking)
   2. FACTORY METHOD PATTERN  -> PaymentHandler (Creates Card vs Cash payment)
   3. ABSTRACT FACTORY PATTERN -> PackagingFactory (Creates matching Cup & Container)
-================================================================================
-"""
 
 from abc import ABC, abstractmethod
 
