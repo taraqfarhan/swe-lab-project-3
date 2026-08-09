@@ -236,15 +236,15 @@ The Abstract Factory pattern guarantees that cups and containers are always crea
 ### UML Structure (Conceptual)
 
 ```
-PackagingFactory (Interface) ------> Cup (Interface) + Container (Interface)
-       ^                                    ^                    ^
-       |                                    |                    |
-  +----+--------------------+               |                    |
-  |                         |               |                    |
-DineInPackagingFactory  DisposablePackagingFactory |               |
-  |                         |               |                    |
-  +---> CeramicCup          +---> PaperCup -+                    |
-  +---> GlassPlate          +---> PaperBag ----------------------+
+PackagingFactory (Interface) -----------------> Cup (Interface) + Container (Interface)
+       ^                                              ^                    ^
+       |                                              |                    |
+  +----+--------------------+                         |                    |
+  |                         |                         |                    |
+DineInPackagingFactory  DisposablePackagingFactory    |                    |
+  |                         |                         |                    |
+  +---> CeramicCup          +---> PaperCup -+---------+                    |
+  +---> GlassPlate          +---> PaperBag --------------------------------+
 ```
 
 ### Example Code (Python)
