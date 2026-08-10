@@ -6,7 +6,7 @@ This project implements a **single, unified software solution**—a **Cafe Order
 
 1. **Singleton Pattern**: Manages the central `OrderTracker` so order IDs remain unique and synchronized.
 2. **Factory Method Pattern**: Manages `PaymentHandler` to dynamically instantiate and process payments (`CardPayment` vs. `CashPayment`).
-3. **Abstract Factory Pattern**: Manages `PackagingFactory` to generate matching families of packaging (`DineInPackagingFactory` vs. `DisposablePackagingFactory`).
+3. **Abstract Factory Pattern**: Manages `PackagingFactory` to generate matching families of packaging (`ReusablePackagingFactory` vs. `DisposablePackagingFactory`).
 
 ---
 
@@ -151,11 +151,11 @@ class Payment(ABC):
 # Concrete Products
 class CardPayment(Payment):
     def pay(self, amount: float) -> None:
-        print(f"💳 Paid ${amount:.2f} using Credit/Debit Card.")
+        print(f"Paid ${amount:.2f} using Credit/Debit Card.")
 
 class CashPayment(Payment):
     def pay(self, amount: float) -> None:
-        print(f"💵 Paid ${amount:.2f} using Cash.")
+        print(f"Paid ${amount:.2f} using Cash.")
 
 # Creator with Factory Method
 class PaymentHandler(ABC):
@@ -231,20 +231,20 @@ The Abstract Factory pattern guarantees that cups and containers are always crea
 - **Abstract Products (`Cup`, `Container`)**: Interfaces for the packaging family.
 - **Concrete Products (`CeramicCup`, `GlassPlate`, `PaperCup`, `PaperBag`)**: Specific items for each family.
 - **Abstract Factory (`PackagingFactory`)**: Declares `create_cup()` and `create_container()`.
-- **Concrete Factories (`DineInPackagingFactory`, `DisposablePackagingFactory`)**: Produce matched sets of packaging.
+- **Concrete Factories (`ReusablePackagingFactory`, `DisposablePackagingFactory`)**: Produce matched sets of packaging.
 
 ### UML Structure (Conceptual)
 
 ```
-PackagingFactory (Interface) -----------------> Cup (Interface) + Container (Interface)
-       ^                                              ^                    ^
-       |                                              |                    |
-  +----+--------------------+                         |                    |
-  |                         |                         |                    |
-DineInPackagingFactory  DisposablePackagingFactory    |                    |
-  |                         |                         |                    |
-  +---> CeramicCup          +---> PaperCup -+---------+                    |
-  +---> GlassPlate          +---> PaperBag --------------------------------+
+PackagingFactory (Interface) ---------------------> Cup (Interface) + Container (Interface)
+       ^                                                    ^                    ^
+       |                                                    |                    |
+  +----+--------------------+                               |                    |
+  |                         |                               |                    |
+ReusablePackagingFactory  DisposablePackagingFactory        |                    |
+  |                         |                               |                    |
+  +---> CeramicCup          +---> PaperCup -+---------------+                    |
+  +---> GlassPlate          +---> PaperBag -+------------------------------------+
 ```
 
 ### Example Code (Python)
@@ -292,7 +292,7 @@ class PackagingFactory(ABC):
         pass
 
 # Concrete Factories
-class DineInPackagingFactory(PackagingFactory):
+class ReusablePackagingFactory(PackagingFactory):
     def create_cup(self) -> Cup:
         return CeramicCup()
 
@@ -310,7 +310,7 @@ class DisposablePackagingFactory(PackagingFactory):
 ### Code Explanation
 
 1. `PackagingFactory` defines the interface for creating both a `Cup` and a `Container`.
-2. `DineInPackagingFactory` creates only reusable items (`CeramicCup` + `GlassPlate`).
+2. `ReusablePackagingFactory` creates only reusable items (`CeramicCup` + `GlassPlate`).
 3. `DisposablePackagingFactory` creates only disposable items (`PaperCup` + `PaperBag`).
 4. The client receives guaranteed-compatible packaging elements.
 
