@@ -1,1 +1,0 @@
-print("TARAQ POCHA")
